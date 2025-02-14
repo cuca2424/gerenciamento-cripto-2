@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-function AdicionarAporte({carteiras = [], botaoCarteira, pegarDados}) {
+function AdicionarAporte({carteiras = [], botaoCarteira, funcaoRecarregar}) {
 
     // useStates
     const [criptomoedas, setCriptomoedas] = useState([]);
@@ -140,7 +140,7 @@ function AdicionarAporte({carteiras = [], botaoCarteira, pegarDados}) {
             });
       
             if (response.ok) {
-              pegarDados();
+              funcaoRecarregar();
               setMensagemErroAdicionarAporte("");
               setCriptomoeda("");
               setPreco("");

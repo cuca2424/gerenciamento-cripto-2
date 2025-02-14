@@ -1,48 +1,96 @@
-function GraficoPizza() {
-    return(
-        <div>
-            <div 
-            className="echart-doughnut-chart-example" 
+import { useEffect, useRef, useState } from "react";
+import * as echarts from "echarts";
+
+function GraficoPizza({ dados }) {
+    const { getColor } = window.phoenix.utils;
+    const chartRef = useRef(null);
+    const instanceRef = useRef(null);
+    const [dadosGrafico, setDadosGrafico] = useState([]);
+
+    const cores = [
+        getColor("primary"),
+        getColor("warning"),
+        getColor("danger"),
+        getColor("info"),
+        getColor("secondary"),
+        getColor("success"),
+        getColor("success")
+    ];
+
+    const escolherCor = (index) => cores[index % cores.length];
+
+    useEffect(() => {
+        if (dados && dados.length > 0) {
+            setDadosGrafico(dados.map((dado, index) => ({
+                value: dado.saldoTotal,
+                name: dado.nome,
+                itemStyle: { color: escolherCor(index) },
+            })));
+        } else {
+            setDadosGrafico([
+                //{ value: 1, name: 'Carregando', itemStyle: { color: getColor('danger') } }
+            ]);
+        }
+    }, [dados]);
+
+    useEffect(() => {
+        if (!chartRef.current) return;
+
+        if (!instanceRef.current) {
+            instanceRef.current = echarts.init(chartRef.current);
+        }
+
+        instanceRef.current.setOption({
+            legend: {
+                orient: 'vertical',
+                left: 'right',
+                textStyle: {
+                  color: getColor('success')
+                }
+            },
+            tooltip: {
+                trigger: 'item',
+                padding: [7, 10],
+                backgroundColor: getColor('body-highlight-bg'),
+                borderColor: getColor('border-color'),
+                textStyle: { color: getColor('light-text-emphasis') },
+                borderWidth: 1,
+                transitionDuration: 0,
+                axisPointer: {
+                  type: 'none'
+                }
+              },
+            series: [
+                {
+                    type: "pie",
+                    radius: ['40%', '70%'],
+                    center: ['50%', '55%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        show: false,
+                        position: 'center'
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: dadosGrafico
+                }
+            ]
+        });
+    }, [dadosGrafico]);
+
+    return (
+        <div
+            ref={chartRef}
             style={{
                 minHeight: "320px",
+                width: "100%",
                 userSelect: "none",
                 WebkitTapHighlightColor: "rgba(0, 0, 0, 0)",
-                position: "relative"
+                position: "relative",
             }}
-            >
-            <div 
-                style={{
-                    position: "relative",
-                    width: "720px",
-                    height: "320px",
-                    padding: 0,
-                    margin: 0,
-                    borderWidth: 0,
-                    cursor: "default"
-                }}
-                >
-                <canvas 
-                data-zr-dom-id="zr_0" 
-                width="720" 
-                height="320" 
-                style={{
-                    position: "absolute",
-                    left: 0,
-                    top: 0,
-                    width: "720px",
-                    height: "320px",
-                    userSelect: "none",
-                    WebkitTapHighlightColor: "rgba(0, 0, 0, 0)",
-                    padding: 0,
-                    margin: 0,
-                    borderWidth: 0
-                }}
-                ></canvas>
-            </div>
-            <div></div>
-            </div>
-        </div>
-    )
+        ></div>
+    );
 }
 
 export default GraficoPizza;

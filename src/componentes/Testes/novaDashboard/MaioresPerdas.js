@@ -17,7 +17,7 @@ const dados = [
     variacao: "+7%" },
 ];
 
-function MaioresPerdas() {
+function MaioresPerdas({dados}) {
     return (
     <div className="card h-100">
 
@@ -27,7 +27,9 @@ function MaioresPerdas() {
 
             <hr className="m-0 mt-1"/>
 
-            <table className="table fs-10 px-4">
+            {
+                dados.length > 0 ? (
+<table className="table fs-10 px-4">
                 <thead>
                 <tr >
                     <th className="text-start">Criptomoeda</th>
@@ -36,7 +38,7 @@ function MaioresPerdas() {
                 </tr>
                 </thead>
                 <tbody className="list">
-                {dados.map(dado => {
+                {dados?.map(dado => {
                     return (
                         <tr className="text-start px-5">
                             <td className="py-2 white-space-nowrap ps-2 country">
@@ -45,7 +47,7 @@ function MaioresPerdas() {
                                     href="#!"
                                 >
                                     <img
-                                        src={dado.url}
+                                        src={dado.imagem}
                                         alt=""
                                         width="15"
                                     />
@@ -55,16 +57,62 @@ function MaioresPerdas() {
                                 </div>
                             </td>
                             <td className="py-2 text-center">
-                                <h6>{dado.preco}</h6>
+                                <h6>${dado.precoAtual.toFixed(8)}</h6>
                             </td>
-                            <td className="py-2 text-end text-success">
-                                <h6>{dado.variacao}</h6>
+                            <td className="py-2 text-end">
+                                <h6 className="text-danger">{dado.variacao24h.toFixed(2)}%</h6>
                             </td>
                         </tr>
                     )
                 })}
                 </tbody>
             </table>
+                ) : (
+                    <div className="table-placeholder">
+                    <table className="table fs-10 px-4">
+                        <thead>
+                            <tr>
+                                <th className="text-start">
+                                    <span className="placeholder-glow d-flex">
+                                        <span className="placeholder col-6 justify-content-center"></span>
+                                    </span>
+                                </th>
+                                <th className="text-center">
+                                    <span className="placeholder-glow d-flex ">
+                                        <span className="placeholder col-6 justify-content-center"></span>
+                                    </span>
+                                </th>
+                                <th className="text-end">
+                                    <span className="placeholder-glow d-flex">
+                                        <span className="placeholder col-12 justify-content-center"></span>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {[...Array(5)].map((_, index) => (
+                                <tr key={index}>
+                                    <td className="py-2">
+                                        <div className="d-flex align-items-center">
+                                            <span className="placeholder col-2 me-2"></span>
+                                            <span className="placeholder col-6"></span>
+                                        </div>
+                                    </td>
+                                    <td className="py-2">
+                                        <span className="placeholder col-4"></span>
+                                    </td>
+                                    <td className="py-2 text-end">
+                                        <span className="placeholder col-5"></span>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                )
+            }
+
+            
         </div>
     )
 }

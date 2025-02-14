@@ -121,9 +121,7 @@
       'Julho',
       'Agosto',
       'Setembro',
-      'Outubro',
-      'Novembro',
-      'Dezembro'
+      'Outubro'
     ];
   
     const data1 = [
@@ -4818,43 +4816,6 @@
             labelLine: {
               show: false
             },
-            data: [
-              {
-                value: 1200,
-                name: 'Facebook',
-                itemStyle: {
-                  color: getColor('primary')
-                }
-              },
-              {
-                value: 1000,
-                name: 'Youtube',
-                itemStyle: {
-                  color: getColor('danger')
-                }
-              },
-              {
-                value: 800,
-                name: 'Twitter',
-                itemStyle: {
-                  color: getColor('info')
-                }
-              },
-              {
-                value: 600,
-                name: 'Linkedin',
-                itemStyle: {
-                  color: getColor('success')
-                }
-              },
-              {
-                value: 400,
-                name: 'Github',
-                itemStyle: {
-                  color: getColor('warning')
-                }
-              }
-            ]
           }
         ],
         tooltip: {

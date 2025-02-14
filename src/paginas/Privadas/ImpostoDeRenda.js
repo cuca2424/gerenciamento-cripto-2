@@ -10,27 +10,22 @@ function ImpostoDeRenda() {
       <div class="col-12">
         <div class="row altura">
           <div className="col-12 col-lg-6 col-xxl-4 h-50 p-2">
-            <Informativo1 
-                  aportes="0"
-                  saldo="0"
-                  lucro="0" 
-                  lucroPorcentil="0"
-                  />
+            <h2>Informativo1</h2>
             </div>
           <div className="col-12 col-lg-6 col-xxl-4 h-50 p-2 border-end border-start">
-            <MedoGanancia />
+            <h2>MedoGanancia</h2>
           </div>
           <div className="col-12 col-lg-6 col-xxl-4 h-50 p-2">
-            <AporteSaldo />
+            <h2>AporteSaldo</h2>
           </div>
           <div className="col-12 col-lg-6 col-xxl-4 h-50 p-2">
-            <MaioresGanhos />
+            <h2>MaioresGanhos</h2>
           </div>
           <div className="col-12 col-lg-6 col-xxl-4 h-50 p-2">
-            <MaioresPerdas />
+            <h2>MaioresPerdas</h2>
           </div>
           <div className="col-12 col-lg-6 col-xxl-4 h-50 p-2">
-            <Carteiras />
+            <h2>Carteiras</h2>
           </div>
         </div>
       </div>

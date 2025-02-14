@@ -2,7 +2,7 @@ import { useState } from "react";
 import moment from "moment";
 
 
-function Carteiras({carteiras = [], funcaoRecarregar = () => console.log("test")}) {
+function Carteiras({carteiras = null, funcaoRecarregar = () => console.log("test")}) {
     const [carteiraSelecionada, setCarteiraSelecionada] = useState(null);
     console.log("carteira: ", carteiraSelecionada);
 
@@ -77,8 +77,8 @@ function Carteiras({carteiras = [], funcaoRecarregar = () => console.log("test")
     }
 
     return(
-        <div class="card h-100 ">
-          <div className="carteiras">
+        <div class="card h-100 bg-dark">
+          <div className="carteiras h-100 d-flex flex-column">
             <div class="mb-0 border-0 d-flex justify-content-between align-items-center">
                 <div className="m-3">
                   <h4 class="text-body">Carteiras</h4>
@@ -108,19 +108,25 @@ function Carteiras({carteiras = [], funcaoRecarregar = () => console.log("test")
             <hr className="m-0"/>
 
                  
-            <div class="card-body py-0 m-0 o-0">
-                <div class="table-responsive scrollbar mt-0">
+            <div key={carteiras ? "loaded" : "loading"} class="py-0 m-0 o-0 d-flex flex-grow-1 w-100">
+                
                 {
-            (!carteiras || carteiras.length === 0) ? (
-                <h5 className="d-flex justify-content-center align-items-center mt-5">Você não possui nenhuma carteira.</h5>
+            !carteiras ? (
+              <div className="d-flex flex-column justify-content-center align-items-center h-100 w-100">
+                <i className="fa-solid fa-spinner fa-spin fa-3x"></i>
+              </div>
+          ) : 
+          carteiras.length === 0 ? (
+                <h5 className="d-flex justify-content-center align-items-center mt-5 w-100">Você não possui nenhuma carteira.</h5>
             ) : (
+              <div class="table-responsive scrollbar mt-0 w-100">
                 <table className="table fs-10 mb-0">
                 <thead>
                     <tr>
-                    <th className="sort ps-0 align-middle" style={{ minWidth: "100px" }}>
+                    <th className="text-start" style={{ minWidth: "100px" }}>
                         NOME DA CARTEIRA
                     </th>
-                    <th className="sort text-end align-middle">VALOR TOTAL</th>
+                    <th className="text-end">VALOR TOTAL</th>
                     </tr>
                 </thead>
                 <tbody className="list" id="table-country-wise-visitors">
@@ -149,10 +155,10 @@ function Carteiras({carteiras = [], funcaoRecarregar = () => console.log("test")
             }
           </tbody>
         </table>
+    </div>
       )
     }
                 </div>
-            </div>
 
 
             <div
